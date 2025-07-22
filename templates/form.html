@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>House Price Prediction</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #1e1e2f;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 20px;
+      color: #fff;
+      flex: 1 1 400px;
+      min-height: 520px;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card h2 {
+      margin-bottom: 15px;
+      color: #00ffc8;
+      text-align: center;
+    }
+
+    .info {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #ccc;
+    }
+
+    .input-box {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 10px 0;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid #ccc;
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .input-box label {
+      position: absolute;
+      top: 10px;
+      left: 0;
+      color: #ccc;
+      pointer-events: none;
+      transition: 0.3s ease;
+    }
+
+    .input-box input::placeholder {
+      color: transparent;
+    }
+
+    .input-box input:focus ~ label,
+    .input-box input:valid ~ label {
+      top: -14px;
+      font-size: 12px;
+      color: #00ffc8;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: #00ffc8;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #00c6a2;
+    }
+
+    #predict {
+      text-align: center;
+      margin-top: 15px;
+      color: #00ffc8;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      color: #ccc;
+      font-size: 13px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .card {
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Card 1: Information -->
+    <div class="card">
+      <h2>Instruction</h2>
+      <p class="info">
+        🏠 Welcome! This AI tool predicts the estimated price of a house located in Islamabad.<br><br>
+        ✅ Please follow these input guidelines for the best results:
+        <br><br>
+        ➤ <strong>Location:</strong> Type only sector names like <em>F-6</em>, <em>G-13</em>, <em>I-8</em>, <em>DHA Phase 2</em>. No full addresses.
+        <br><br>
+        ➤ <strong>Area:</strong> Enter the plot size in square yards (e.g. <em>500</em>, <em>1000</em>, <em>1250</em>). Avoid commas or units like "sq ft".
+        <br><br>
+        ➤ <strong>Bedrooms:</strong> Total bedrooms including all floors.
+        <br><br>
+        ➤ <strong>Baths:</strong> Number of bathrooms (including attached or guest).
+        <br><br>
+        💡 Tip: The prediction uses trained AI on Islamabad’s housing data.
+      </p>
+    </div>
+
+    <!-- Card 2: Input Form -->
+    <div class="card">
+      <h2>House Price Prediction</h2>
+      <form action="/submit" method="POST">
+        <div class="input-box">
+          <input type="text" name="location" required placeholder="e.g. G-10">
+          <label>Location</label>
+        </div>
+        <div class="input-box">
+          <input type="text" name="area" required placeholder="e.g. 1000">
+          <label>Area</label>
+        </div>
+        <div class="input-box">
+          <input type="text" name="badroomes" required placeholder="e.g. 4">
+          <label>Bedrooms</label>
+        </div>
+        <div class="input-box">
+          <input type="text" name="baths" required placeholder="e.g. 3">
+          <label>Baths</label>
+        </div>
+        {% if answer %}
+        <p id="predict">Predicted Price: Rs {{ answer }}</p>
+        {% endif %}
+        <button type="submit" class="btn">Predict Price</button>
+      </form>
+    </div>
+
+  </div>
+
+  <footer>Created by Nouman Aziz</footer>
+
+  <script>
+    /*fetch('http://127.0.0.1:600/get')
+      .then(response => response.json())
+      .then(data => {
+        const predict = document.getElementById('predict');
+        predict.innerText = data.prediction;
+      });*/
+  </script>
+
+</body>
+</html>
